@@ -27,14 +27,14 @@ git clone https://github.com/jimweldev/reactjs_laravel_07_2025.git
 2. Install backend dependencies:
 
 ```bash
-cd reactjs19-laravel12-template/backend
+cd backend
 composer install
 ```
 
 3. Install frontend dependencies:
 
 ```bash
-cd ../frontend
+cd frontend
 npm install
 ```
 
