@@ -533,7 +533,6 @@ class UserController extends Controller {
             $filePath = StorageHelper::uploadFileAs($uploadedFile, 'avatars', $extension);
 
             if ($authUser->avatar_path) {
-                dd($authUser->avatar_path);
                 StorageHelper::deleteFile($authUser->avatar_path);
             }
 
