@@ -94,6 +94,8 @@ class MailLogController extends Controller {
             ], 403);
         }
 
+        DB::beginTransaction();
+
         try {
             // create a new record
             $record = MailLog::create($request->all());
@@ -107,6 +109,12 @@ class MailLogController extends Controller {
 
                     $filePath = StorageHelper::uploadFileAs($attachment, 'mail_log_attachments', $uniqueName);
 
+                    if (!$filePath) {
+                        return response()->json([
+                            'message' => "Failed to upload {$attachment->getClientOriginalName()}. File size too large.",
+                        ], 400);
+                    }
+
                     MailLogAttachment::create([
                         'mail_log_id' => $record->id,
                         'file_name' => $attachment->getClientOriginalName(),
@@ -115,9 +123,13 @@ class MailLogController extends Controller {
                 }
             }
 
+            DB::commit();
+
             // Return the created record
             return response()->json($record, 201);
         } catch (\Exception $e) {
+            DB::rollBack();
+            
             // Handle exceptions and return an error response
             return response()->json([
                 'message' => 'An error occurred.',

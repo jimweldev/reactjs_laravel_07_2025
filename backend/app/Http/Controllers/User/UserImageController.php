@@ -65,12 +65,18 @@ class UserImageController extends Controller {
 
         try {
             // Handle the file upload
-            if ($request->hasFile('image')) {
+            if ($request->has('image')) {
                 $file = $request->file('image');
                 $extension = $file->getClientOriginalExtension();
                 $uniqueName = Str::uuid().'.'.$extension;
 
                 $filePath = StorageHelper::uploadFileAs($file, 'galleries', $uniqueName);
+
+                if (!$filePath) {
+                    return response()->json([
+                        'message' => "Failed to upload {$file->getClientOriginalName()}. File size too large.",
+                    ], 400);
+                }
 
                 // Create a new record in the database
                 $record = UserImage::create([

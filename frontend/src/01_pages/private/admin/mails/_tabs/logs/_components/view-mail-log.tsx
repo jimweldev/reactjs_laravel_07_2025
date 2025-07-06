@@ -1,6 +1,7 @@
 import { toast } from 'sonner';
 import { type MailLog } from '@/04_types/mail-log';
 import { type MailLogAttachment } from '@/04_types/mail-log-attachment';
+import FancyboxAttachmentViewer from '@/components/fancybox/fancybox-attachment-viewer';
 import FancyboxViewer from '@/components/fancybox/fancybox-viewer';
 import InputGroup from '@/components/forms/input-group';
 import InputGroupText from '@/components/forms/input-group-text';
@@ -18,6 +19,7 @@ import {
 import { Input } from '@/components/ui/input';
 import useFancybox from '@/hooks/use-fancybox';
 import { getDateTimezone } from '@/lib/get-date-timezone';
+import { getImageUrl } from '@/lib/get-image-url';
 
 // Define props for the mail log viewer component
 type ViewMailLogProps = {
@@ -145,7 +147,20 @@ const ViewMailLog = ({ selectedItem, open, setOpen }: ViewMailLogProps) => {
                     data-fancybox={`${selectedItem.id}`}
                     data-caption={attachment.file_name}
                   >
-                    <Badge>{attachment.file_name}</Badge>
+                    <div className="max-w-25">
+                      <div className="flex aspect-square items-center justify-center overflow-hidden rounded">
+                        <FancyboxAttachmentViewer
+                          className="min-h-full min-w-full object-cover"
+                          src={getImageUrl(
+                            `${import.meta.env.VITE_STORAGE_BASE_URL}/`,
+                            attachment.file_path,
+                          )}
+                        />
+                      </div>
+                      <p className="truncate text-center text-sm">
+                        {attachment.file_name}
+                      </p>
+                    </div>
                   </FancyboxViewer>
                 ),
               )}

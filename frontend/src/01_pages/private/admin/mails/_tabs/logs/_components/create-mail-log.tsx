@@ -27,6 +27,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { handleFileRejections } from '@/lib/handle-file-rejections';
+import MailAttachmentDropzone from '@/components/file-dropzones/mail-attachment-dropzone';
 
 // Define validation schema using Zod
 const FormSchema = z.object({
@@ -262,8 +263,9 @@ const CreateMailLog = ({ open, setOpen, refetch }: CreateMailLogProps) => {
 
                   <FormItem className="col-span-12">
                     <FormLabel>Attachments</FormLabel>
-                    <FileDropzone
+                    <MailAttachmentDropzone
                       files={files}
+                      setFiles={setFiles}
                       isMultiple={true}
                       onDrop={(
                         acceptedFiles: File[],
