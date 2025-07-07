@@ -1,4 +1,5 @@
 .react-select-container {
+  @apply overflow-hidden rounded-xl;
   overflow: visible;
   background-color: transparent !important;
 }
@@ -35,8 +36,12 @@
 }
 
 /* Scrollbar Styling */
+.react-select__menu {
+  @apply !bg-card overflow-hidden rounded-md;
+}
+
 .react-select__menu-list {
-  @apply bg-card rounded;
+  @apply !bg-card;
 }
 
 .react-select__option {

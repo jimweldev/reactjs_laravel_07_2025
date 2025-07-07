@@ -8,9 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Mails\MailLog;
 use App\Models\Mails\MailLogAttachment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Str;
 
 class MailLogController extends Controller {
     /**
@@ -133,7 +132,7 @@ class MailLogController extends Controller {
             return response()->json($record, 201);
         } catch (\Exception $e) {
             DB::rollBack();
-            
+
             // Handle exceptions and return an error response
             return response()->json([
                 'message' => 'An error occurred.',

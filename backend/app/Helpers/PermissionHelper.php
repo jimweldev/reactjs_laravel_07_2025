@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use App\Models\User;
+use App\Models\Core\User;
 
 class PermissionHelper {
     /**

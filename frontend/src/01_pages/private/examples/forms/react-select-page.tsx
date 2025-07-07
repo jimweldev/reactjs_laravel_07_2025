@@ -301,7 +301,7 @@ export default ReactSelectPage;
                         placeholder="Select users"
                         isMulti
                         closeMenuOnSelect={false}
-                        value={field.value || []}
+                        value={field.value}
                         onChange={field.onChange}
                       />
                     </FormControl>

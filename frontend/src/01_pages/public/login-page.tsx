@@ -95,7 +95,7 @@ const LoginPage = () => {
                       <FormLabel>Email</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="name@example.com"
+                          placeholder="me@example.com"
                           {...field}
                           autoComplete="email"
                         />

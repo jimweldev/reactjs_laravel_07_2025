@@ -7,7 +7,7 @@ import MainTemplate from '@/03_templates/main-template/main-template';
 const AdminLayout = () => {
   const sidebarGroups: SidebarGroup[] = [
     {
-      sidebarLabel: 'Pages',
+      sidebarLabel: 'Admin',
       sidebarItems: [
         {
           title: 'Dashboard',

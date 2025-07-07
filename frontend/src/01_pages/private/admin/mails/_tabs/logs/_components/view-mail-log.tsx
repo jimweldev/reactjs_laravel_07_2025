@@ -6,6 +6,7 @@ import FancyboxViewer from '@/components/fancybox/fancybox-viewer';
 import InputGroup from '@/components/forms/input-group';
 import InputGroupText from '@/components/forms/input-group-text';
 import IframePreview from '@/components/iframe/iframe-preview';
+import ToolTip from '@/components/tool-tips/tool-tip';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -137,17 +138,20 @@ const ViewMailLog = ({ selectedItem, open, setOpen }: ViewMailLogProps) => {
             <IframePreview htmlContent={populateTemplate(selectedItem)} />
 
             {/* Display attachments using Fancybox */}
-            <div className="flex flex-wrap gap-2" ref={fancyboxRef}>
+            <div
+              className="grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-2"
+              ref={fancyboxRef}
+            >
               {selectedItem?.mail_log_attachments?.map(
                 (attachment: MailLogAttachment) => (
-                  <FancyboxViewer
-                    baseUrl={import.meta.env.VITE_STORAGE_BASE_URL}
-                    filePath={attachment.file_path}
-                    key={attachment.id}
-                    data-fancybox={`${selectedItem.id}`}
-                    data-caption={attachment.file_name}
-                  >
-                    <div className="w-25">
+                  <div>
+                    <FancyboxViewer
+                      baseUrl={import.meta.env.VITE_STORAGE_BASE_URL}
+                      filePath={attachment.file_path}
+                      key={attachment.id}
+                      data-fancybox={`${selectedItem.id}`}
+                      data-caption={attachment.file_name}
+                    >
                       <div className="flex aspect-square w-full items-center justify-center overflow-hidden rounded">
                         <FancyboxAttachmentViewer
                           className="min-h-full min-w-full object-cover"
@@ -157,11 +161,14 @@ const ViewMailLog = ({ selectedItem, open, setOpen }: ViewMailLogProps) => {
                           )}
                         />
                       </div>
-                      <p className="truncate text-center text-sm">
+                    </FancyboxViewer>
+
+                    <ToolTip content={attachment.file_name!}>
+                      <p className="line-clamp-2 text-center text-xs text-wrap break-all">
                         {attachment.file_name}
                       </p>
-                    </div>
-                  </FancyboxViewer>
+                    </ToolTip>
+                  </div>
                 ),
               )}
             </div>

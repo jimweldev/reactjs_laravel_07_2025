@@ -262,14 +262,10 @@ const CreateMailLog = ({ open, setOpen, refetch }: CreateMailLogProps) => {
                         <FormLabel>Attachments</FormLabel>
                         <FormControl>
                           <MailAttachmentDropzone
-                            className={
-                              fieldState.invalid
-                                ? 'border-destructive text-destructive'
-                                : ''
-                            }
                             files={field.value}
                             setFiles={field.onChange}
                             isMultiple={true}
+                            isInvalid={fieldState.invalid}
                             onDrop={(
                               acceptedFiles: File[],
                               rejectedFiles: FileRejection[],

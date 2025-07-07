@@ -240,9 +240,9 @@ const ReactQuillMyUserImage = ({
                   </h1>
                 </div>
               ) : (
-                <div className="grid grid-cols-12 gap-3">
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-2">
                   {galleries?.records?.map(userImage => (
-                    <div className="col-span-2" key={userImage.id}>
+                    <div key={userImage.id}>
                       <ContextMenu>
                         <ContextMenuTrigger asChild>
                           <div className="relative transition-transform duration-200 ease-in-out hover:scale-105">
@@ -292,7 +292,7 @@ const ReactQuillMyUserImage = ({
                         </ContextMenuContent>
                       </ContextMenu>
 
-                      <ToolTip content={userImage.file_name || ''}>
+                      <ToolTip content={userImage.file_name!}>
                         <p className="line-clamp-2 text-center text-xs text-wrap break-all">
                           {userImage.file_name}
                         </p>

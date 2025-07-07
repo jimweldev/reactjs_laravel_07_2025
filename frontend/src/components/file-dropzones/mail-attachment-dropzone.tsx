@@ -8,17 +8,17 @@ import { Input } from '../ui/input';
 
 interface MailAttachmentDropzoneProps
   extends React.ComponentPropsWithoutRef<typeof Dropzone> {
-  className?: string;
   files?: File[] | null;
   isMultiple?: boolean;
+  isInvalid?: boolean;
   onRemove?: (file: File) => void;
   setFiles: (files: File[]) => void;
 }
 
 const MailAttachmentDropzone = ({
-  className,
   files = [],
   isMultiple = false,
+  isInvalid = false,
   onRemove,
   setFiles,
   ...props
@@ -55,7 +55,7 @@ const MailAttachmentDropzone = ({
               isDragActive
                 ? 'border-primary text-primary'
                 : 'text-muted-foreground border-muted-foreground',
-              className,
+              isInvalid ? 'border-destructive text-destructive' : '',
             )}
             {...getRootProps()}
           >

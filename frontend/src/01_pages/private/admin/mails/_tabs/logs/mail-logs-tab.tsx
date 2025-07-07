@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaEye } from 'react-icons/fa6';
+import { FaEye, FaSquareCheck, FaSquareXmark } from 'react-icons/fa6';
 import type { MailLog } from '@/04_types/mail-log';
 import type { DataTableColumns } from '@/components/data-tables/data-table';
 import DataTable from '@/components/data-tables/data-table';
@@ -44,6 +44,7 @@ const MailLogsTab = () => {
     { label: 'Recipient', column: 'recipient_email' },
     { label: 'Subject', column: 'subject' },
     { label: 'Attachments' },
+    { label: 'Sent', column: 'is_sent' },
     { label: 'Date Created', column: 'created_at' },
     { label: 'Actions' },
   ];
@@ -83,6 +84,13 @@ const MailLogsTab = () => {
                         );
                       })}
                     </div>
+                  </TableCell>
+                  <TableCell>
+                    {mailLog.is_sent ? (
+                      <FaSquareCheck className="text-success" />
+                    ) : (
+                      <FaSquareXmark className="text-destructive" />
+                    )}
                   </TableCell>
                   <TableCell className="font-mono text-xs">
                     {/* Format the date with timezone info */}
