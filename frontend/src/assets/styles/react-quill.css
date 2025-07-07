@@ -10,8 +10,17 @@
   @apply !rounded-b-md;
 }
 
+.quill:focus-within {
+  @apply !ring-ring/50 rounded-md ring-[3px];
+}
+
+.quill:focus-within .ql-toolbar,
+.quill:focus-within .ql-container {
+  @apply !border-primary;
+}
+
 .quill.invalid:focus-within {
-  @apply !ring-destructive/20 dark:!ring-destructive/40 rounded-md ring-[3px];
+  @apply !ring-destructive/20 dark:!ring-destructive/40 ring-[3px];
 }
 
 .quill.invalid .ql-toolbar,

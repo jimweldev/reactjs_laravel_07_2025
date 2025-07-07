@@ -1,6 +1,6 @@
 .react-select-container {
   overflow: visible;
-  background-color: !transparent;
+  background-color: transparent !important;
 }
 
 .react-select__single-value {

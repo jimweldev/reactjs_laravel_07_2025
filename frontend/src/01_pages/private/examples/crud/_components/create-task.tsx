@@ -97,7 +97,7 @@ const CreateTask = ({ open, setOpen, refetch }: CreateTaskProps) => {
                     <FormItem className="col-span-12">
                       <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="CRUD" />
+                        <Input {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

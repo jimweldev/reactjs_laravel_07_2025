@@ -5,13 +5,12 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { mainInstance } from '@/07_instances/main-instance';
-import FileDropzone from '@/components/file-dropzones/file-dropzone';
+import MailAttachmentDropzone from '@/components/file-dropzones/mail-attachment-dropzone';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogBody,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -27,12 +26,11 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { handleFileRejections } from '@/lib/handle-file-rejections';
-import MailAttachmentDropzone from '@/components/file-dropzones/mail-attachment-dropzone';
 
 // Define validation schema using Zod
 const FormSchema = z.object({
-  mail_template_id: z.string().regex(/^\d+$/, { message: 'Invalid Number' }),
-  user_id: z.string().regex(/^\d+$/, { message: 'Invalid Number' }),
+  mail_template_id: z.string().min(1, { message: 'Required' }),
+  user_id: z.string(),
   subject: z.string().min(1, { message: 'Required' }),
   recipient_email: z.string().email({ message: 'Invalid email address' }),
   cc: z.string().refine(
@@ -66,6 +64,7 @@ const FormSchema = z.object({
     },
     { message: 'Invalid JSON' },
   ),
+  attachments: z.array(z.any()),
 });
 
 // Define props for the this component
@@ -87,11 +86,9 @@ const CreateMailLog = ({ open, setOpen, refetch }: CreateMailLogProps) => {
       cc: '',
       bcc: '',
       content_data: '',
+      attachments: [],
     },
   });
-
-  // State for storing uploaded files
-  const [files, setFiles] = useState<File[]>([]);
 
   // Loading state while creating the item
   const [isLoadingCreateItem, setIsLoadingCreateItem] = useState(false);
@@ -110,7 +107,7 @@ const CreateMailLog = ({ open, setOpen, refetch }: CreateMailLogProps) => {
     formData.append('content_data', data.content_data);
 
     // Add files as attachments
-    files.forEach((file, index) => {
+    data.attachments.forEach((file, index) => {
       formData.append(`attachments[${index}]`, file);
     });
 
@@ -123,7 +120,6 @@ const CreateMailLog = ({ open, setOpen, refetch }: CreateMailLogProps) => {
       success: () => {
         refetch();
         form.reset();
-        setFiles([]);
         setOpen(false);
         return 'Success!';
       },
@@ -149,9 +145,6 @@ const CreateMailLog = ({ open, setOpen, refetch }: CreateMailLogProps) => {
             {/* Dialog header */}
             <DialogHeader>
               <DialogTitle>Create Mail Log</DialogTitle>
-              <DialogDescription>
-                Please fill in the form below to create a new record
-              </DialogDescription>
             </DialogHeader>
             {/* Dialog body */}
             <DialogBody>
@@ -261,32 +254,42 @@ const CreateMailLog = ({ open, setOpen, refetch }: CreateMailLogProps) => {
                     )}
                   />
 
-                  <FormItem className="col-span-12">
-                    <FormLabel>Attachments</FormLabel>
-                    <MailAttachmentDropzone
-                      files={files}
-                      setFiles={setFiles}
-                      isMultiple={true}
-                      onDrop={(
-                        acceptedFiles: File[],
-                        rejectedFiles: FileRejection[],
-                      ) => {
-                        setFiles(acceptedFiles);
-                        handleFileRejections(rejectedFiles);
-                      }}
-                      onRemove={(fileToRemove: File) => {
-                        setFiles((prevFiles: File[] | []) => {
-                          if (prevFiles) {
-                            return prevFiles.filter(
-                              file => file !== fileToRemove,
-                            );
-                          }
-                          return prevFiles;
-                        });
-                      }}
-                    />
-                    <FormMessage />
-                  </FormItem>
+                  <FormField
+                    control={form.control}
+                    name="attachments"
+                    render={({ field, fieldState }) => (
+                      <FormItem className="col-span-12">
+                        <FormLabel>Attachments</FormLabel>
+                        <FormControl>
+                          <MailAttachmentDropzone
+                            className={
+                              fieldState.invalid
+                                ? 'border-destructive text-destructive'
+                                : ''
+                            }
+                            files={field.value}
+                            setFiles={field.onChange}
+                            isMultiple={true}
+                            onDrop={(
+                              acceptedFiles: File[],
+                              rejectedFiles: FileRejection[],
+                            ) => {
+                              field.onChange(acceptedFiles);
+                              handleFileRejections(rejectedFiles);
+                            }}
+                            onRemove={(fileToRemove: File) => {
+                              field.onChange(
+                                field.value.filter(
+                                  file => file !== fileToRemove,
+                                ),
+                              );
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
               </div>
             </DialogBody>

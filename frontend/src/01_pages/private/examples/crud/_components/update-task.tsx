@@ -113,7 +113,7 @@ const UpdateTask = ({
                     <FormItem className="col-span-12">
                       <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="Luna" />
+                        <Input {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

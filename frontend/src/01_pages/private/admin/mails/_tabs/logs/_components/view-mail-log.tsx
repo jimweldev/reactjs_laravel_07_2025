@@ -137,7 +137,7 @@ const ViewMailLog = ({ selectedItem, open, setOpen }: ViewMailLogProps) => {
             <IframePreview htmlContent={populateTemplate(selectedItem)} />
 
             {/* Display attachments using Fancybox */}
-            <div className="flew-wrap flex gap-2" ref={fancyboxRef}>
+            <div className="flex flex-wrap gap-2" ref={fancyboxRef}>
               {selectedItem?.mail_log_attachments?.map(
                 (attachment: MailLogAttachment) => (
                   <FancyboxViewer
@@ -147,8 +147,8 @@ const ViewMailLog = ({ selectedItem, open, setOpen }: ViewMailLogProps) => {
                     data-fancybox={`${selectedItem.id}`}
                     data-caption={attachment.file_name}
                   >
-                    <div className="max-w-25">
-                      <div className="flex aspect-square items-center justify-center overflow-hidden rounded">
+                    <div className="w-25">
+                      <div className="flex aspect-square w-full items-center justify-center overflow-hidden rounded">
                         <FancyboxAttachmentViewer
                           className="min-h-full min-w-full object-cover"
                           src={getImageUrl(

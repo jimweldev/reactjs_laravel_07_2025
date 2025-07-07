@@ -9,6 +9,8 @@ use App\Models\Mails\MailLog;
 use App\Models\Mails\MailLogAttachment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+
 
 class MailLogController extends Controller {
     /**
@@ -98,7 +100,9 @@ class MailLogController extends Controller {
 
         try {
             // create a new record
-            $record = MailLog::create($request->all());
+            $record = MailLog::create(array_filter($request->all(), function ($value) {
+                return $value !== null && $value !== '';
+            }));
 
             // Attach the attachments to the record
             if ($request->has('attachments')) {

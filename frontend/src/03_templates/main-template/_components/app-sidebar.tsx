@@ -1,10 +1,12 @@
 import { NavLink } from 'react-router';
+import ReactImage from '@/components/images/react-image';
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -38,6 +40,16 @@ const AppSidebar = ({ sidebarGroups = [], ...props }: AppSidebarProps) => {
   return (
     <Sidebar {...props}>
       <SidebarContent>
+        <SidebarHeader>
+          <ReactImage
+            className="mx-auto w-1/2 rounded-lg"
+            src="/images/app-logo.jpg"
+            alt="App Logo"
+          />
+          <h2 className="text-center text-lg font-semibold">
+            {import.meta.env.VITE_APP_NAME}
+          </h2>
+        </SidebarHeader>
         {sidebarGroups.map(group => (
           <SidebarGroup key={group.sidebarLabel}>
             <SidebarGroupLabel>{group.sidebarLabel}</SidebarGroupLabel>

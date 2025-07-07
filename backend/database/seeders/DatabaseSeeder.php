@@ -12,8 +12,6 @@ class DatabaseSeeder extends Seeder {
      * Seed the application's database.
      */
     public function run(): void {
-        // User::factory(10)->create();
-
         User::factory()->create([
             'first_name' => 'Connext',
             'middle_name' => null,
@@ -25,5 +23,10 @@ class DatabaseSeeder extends Seeder {
         ]);
 
         User::factory(500)->create();
+
+        // Run the database seeds
+        $this->call([
+            MailTemplateSeeder::class,
+        ]);
     }
 }

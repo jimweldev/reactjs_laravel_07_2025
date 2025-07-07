@@ -1,5 +1,6 @@
 import { CloudUploadIcon, Paperclip, Trash2 } from 'lucide-react';
 import Dropzone from 'react-dropzone';
+import { cn } from '@/lib/utils';
 import InputGroup from '../forms/input-group';
 import InputGroupText from '../forms/input-group-text';
 import { Button } from '../ui/button';
@@ -7,6 +8,7 @@ import { Input } from '../ui/input';
 
 interface MailAttachmentDropzoneProps
   extends React.ComponentPropsWithoutRef<typeof Dropzone> {
+  className?: string;
   files?: File[] | null;
   isMultiple?: boolean;
   onRemove?: (file: File) => void;
@@ -14,6 +16,7 @@ interface MailAttachmentDropzoneProps
 }
 
 const MailAttachmentDropzone = ({
+  className,
   files = [],
   isMultiple = false,
   onRemove,
@@ -45,13 +48,15 @@ const MailAttachmentDropzone = ({
       {...props}
     >
       {({ getRootProps, getInputProps, isDragActive }) => (
-        <div className="space-y-2">
+        <div>
           <div
-            className={`hover:bg-muted flex w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed px-4 py-6 text-center ${
+            className={cn(
+              'hover:bg-muted flex w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed px-4 py-6 text-center',
               isDragActive
                 ? 'border-primary text-primary'
-                : 'text-muted-foreground border-muted-foreground'
-            } `}
+                : 'text-muted-foreground border-muted-foreground',
+              className,
+            )}
             {...getRootProps()}
           >
             <input {...getInputProps()} />
@@ -68,8 +73,8 @@ const MailAttachmentDropzone = ({
             </p>
           </div>
 
-          {files && (
-            <ul className="space-y-2">
+          {files && files.length > 0 && (
+            <div className="mt-2 space-y-2">
               {files.map((file, index) => {
                 const fullName = file.name;
                 const lastDotIndex = fullName.lastIndexOf('.');
@@ -97,7 +102,12 @@ const MailAttachmentDropzone = ({
                         )
                       }
                     />
-                    <Input inputSize="sm" className='max-w-15' value={extension} readOnly />
+                    <Input
+                      inputSize="sm"
+                      className="max-w-15"
+                      value={extension}
+                      readOnly
+                    />
                     <Button
                       variant="destructive"
                       size="sm"
@@ -108,7 +118,7 @@ const MailAttachmentDropzone = ({
                   </InputGroup>
                 );
               })}
-            </ul>
+            </div>
           )}
         </div>
       )}
