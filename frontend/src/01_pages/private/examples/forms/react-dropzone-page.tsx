@@ -68,7 +68,7 @@ export default ReactDropzonePage;
 
   return (
     <>
-      <PageHeader className="mb-3">React Dropzone</PageHeader>
+      <PageHeader className="mb-layout">React Dropzone</PageHeader>
 
       <PageSubHeader className="mb-1">Single</PageSubHeader>
       <CodePreview

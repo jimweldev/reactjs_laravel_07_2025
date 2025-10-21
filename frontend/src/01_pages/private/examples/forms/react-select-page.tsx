@@ -237,7 +237,7 @@ export default ReactSelectPage;
 
   return (
     <>
-      <PageHeader className="mb-3">React Select</PageHeader>
+      <PageHeader className="mb-layout">React Select</PageHeader>
 
       <PageSubHeader className="mb-1">Single</PageSubHeader>
       <CodePreview

@@ -99,7 +99,7 @@ export default InputPage;
 
   return (
     <>
-      <PageHeader className="mb-3">Input</PageHeader>
+      <PageHeader className="mb-layout">Input</PageHeader>
 
       <CodePreview
         code={codeString}

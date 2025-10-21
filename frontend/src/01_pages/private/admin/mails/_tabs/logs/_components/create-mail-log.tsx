@@ -300,6 +300,7 @@ const CreateMailLog = ({ open, setOpen, refetch }: CreateMailLogProps) => {
             </DialogFooter>
           </form>
         </Form>
+        <pre>{JSON.stringify(form.watch('attachments'), null, 2)}</pre>
       </DialogContent>
     </Dialog>
   );

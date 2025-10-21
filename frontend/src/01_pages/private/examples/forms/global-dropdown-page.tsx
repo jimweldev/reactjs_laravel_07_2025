@@ -17,12 +17,8 @@ import {
 
 const FormSchema = z.object({
   status: z.object({
-    label: z.string().min(1, {
-      message: 'Required',
-    }),
-    value: z.number().min(1, {
-      message: 'Required',
-    }),
+    label: z.string(),
+    value: z.any(),
   }),
 });
 
@@ -122,7 +118,7 @@ export default GlobalDropdownPage;
 
   return (
     <div>
-      <PageHeader className="mb-3">Global Dropdown</PageHeader>
+      <PageHeader className="mb-layout">Global Dropdowns</PageHeader>
 
       <CodePreview
         className="mb-6"

@@ -206,7 +206,7 @@ export default ReactQuillPage;
 
   return (
     <>
-      <PageHeader className="mb-3">React Quill</PageHeader>
+      <PageHeader className="mb-layout">React Quill</PageHeader>
 
       <PageSubHeader className="mb-1">Full</PageSubHeader>
       <CodePreview
